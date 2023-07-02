@@ -1,0 +1,162 @@
+{% load bootstrap4 %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+
+<head>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+    
+.titulo{
+    background-color: rgb(29, 66, 93);
+    padding: 35px;
+    text-align: center;
+    border-radius: 20px;
+    font-family: 'Times New Roman';
+    }
+    h1{
+        color:rgb(12, 162, 57);
+        font-size: xxxx-large;
+    }
+    </style>
+
+
+</head>
+<body>
+ <div class='titulo'>
+    <h1>
+        Esta es la tienda espectacular de Carlos
+    </h1>
+    <br>
+    <p><b>Donde lo que quiera se lo conseguimos</p>
+ </div>
+
+ <div align = "center">
+    <div style = "width: 70%;">
+        <h2>
+            A continuación usted puede ver todos nuestros productos
+        </h2>
+
+    </div>
+ </div>
+<!--aqui empieza el contenido-->
+{% block content %}
+<div align="center">
+    <div style = "width: 80%;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        #
+                    </th>
+                    <th scope="col">
+                        Nombre
+                    </th>
+                    <th scope="col">
+                        Descripción
+                    </th>
+                    <th scope="col">
+                        Precio
+                    </th>
+                    <th scope="col">
+                        Fecha de registro
+                    </th>
+                    <th scope="col">
+                        Estatus
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td scope="row">
+                        {{ producto.pk }}
+                    </td>
+                    <td>
+                        {{ producto.nombre }}
+                    </td>
+                    <td>
+                        {{ producto.descripcion }}
+                    </td>
+                    <td>
+                        {{ producto.precio }}
+                    </td>
+                    <td>
+                        {{ producto.fecha }}
+                    </td>
+                    <td>
+                        {{ producto.estatus }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.nombre.id_for_label }}">
+                    Nombre
+                </label>
+                {{ form.nombre|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.descripcion.id_for_label }}">
+                    Descripción
+                </label>
+                {{ form.descripcion|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.precio.id_for_label }}">
+                    Precio
+                </label>
+                {{ form.precio|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.fecha.id_for_label }}">
+                    Fecha de registro
+                </label>
+                {{ form.fecha|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.estatus.id_for_label }}">
+                    Estatus
+                </label>
+                {{ form.estatus|add_class:"form-control" }}
+            </div>
+            <button class="btn btn-primary" type="submit">
+                Guardar
+            </button>
+            <br>
+            <br>
+        </form>
+
+    </div>
+
+</div> 
+{% endblock %}
+
+
+<!--
+<div>
+    {% for producto in productos %}
+    <p>
+        {{ producto.nombre }}
+    </p>
+    {% endfor %}
+</div>
+
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            Guardar
+        </button>
+    </form>
+</div>-->
+
+
+</body>
+</html>
